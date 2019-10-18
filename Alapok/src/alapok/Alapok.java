@@ -5,7 +5,10 @@
  */
 package alapok;
 
+import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  *
@@ -46,13 +49,50 @@ public class Alapok {
         
         //Bekérés billentyűzetről
         
-        Scanner be=new Scanner(System.in);
+//        Scanner be=new Scanner(System.in);
+//        
+//        //beolvasás string-be
+//        String beolvas=be.nextLine();
+//        
+//        //beolvasás int-be
+//        int beszam=be.nextInt();
         
-        //beolvasás string-be
-        String beolvas=be.nextLine();
+        //tömb min, max
         
-        //beolvasás int-be
-        int beszam=be.nextInt();
+        int legkisebb=Arrays.stream(szamok).min().getAsInt();
+        int legnagyobb=Arrays.stream(szamok).max().getAsInt();
+        
+        
+        System.out.println(legkisebb+","+legnagyobb);
+        
+        //Listák (kollekciók)
+        
+        ArrayList<Integer> szamlista=new ArrayList();
+        
+        //elemek hozzáadása
+        szamlista.add(1);
+        szamlista.add(188);
+        szamlista.add(216);
+        szamlista.add(1025);
+        
+        //elem lekérése
+        szamlista.get(0);
+        
+        //változtatás egy elemen
+        szamlista.set(1, 256);
+        
+        //lista elemeinek kiírása
+        for (Integer i : szamlista) {
+            System.out.println(i);
+        }
+        
+        // kezdeti elemek megadása
+        ArrayList<Character> betuk=new ArrayList() {{add('a');add(b);}};
+        
+        //Megadás asList-el
+        List<Character> tobbBetu=Arrays.asList('a','b','c','d','e');
+        
+        
         
         
 
