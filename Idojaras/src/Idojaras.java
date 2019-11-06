@@ -74,6 +74,12 @@ public class Idojaras {
 		
 		System.out.println(legmelegebbek.size());
 		
+		Double minho=idojarasAdatok.stream().mapToDouble(x->x.getHomerseklet()).min().getAsDouble();
+		
+		IdojarasAdat leghidegebb=idojarasAdatok.stream().filter(x->x.getHomerseklet()==minho).findFirst().get();
+		
+		System.out.println(leghidegebb.getEv()+","+leghidegebb.getHonap()+","+leghidegebb.getNap()+","+leghidegebb.getOra()+","+leghidegebb.getHomerseklet());
+		
 	}
 
 }
