@@ -1,9 +1,14 @@
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.SortedSet;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 public class Idojaras {
@@ -41,9 +46,9 @@ public class Idojaras {
 		
 		List<IdojarasAdat> ev2008=idojarasAdatok.stream().filter(x->x.getEv()==2008).collect(Collectors.toList());
 		
-		for (IdojarasAdat i : ev2008) {
-			System.out.println(i.getHonap()+","+i.getNap()+","+i.getOra()+","+i.getHomerseklet());
-		}
+		//for (IdojarasAdat i : ev2008) {
+		//	System.out.println(i.getHonap()+","+i.getNap()+","+i.getOra()+","+i.getHomerseklet());
+		//}
 		
 		System.out.println("2008 adatai:"+ev2008.size());
 		
@@ -80,6 +85,46 @@ public class Idojaras {
 		
 		System.out.println(leghidegebb.getEv()+","+leghidegebb.getHonap()+","+leghidegebb.getNap()+","+leghidegebb.getOra()+","+leghidegebb.getHomerseklet());
 		
+		//a 2008-as adatokat írassuk fájlba
+		
+		File outFajl=new File("d:/rud/ev2008.txt");
+		
+		try {
+			BufferedWriter wr=new BufferedWriter(new FileWriter(outFajl));
+			
+			for (IdojarasAdat i : ev2008) {
+				wr.write(i.getEv()+
+						";"+i.getHonap()+
+						";"+i.getNap()+
+						";"+i.getOra()+
+						";"+i.getHomerseklet()+
+						";"+i.getSzelsebesseg()+
+						";"+i.getParatartalom());
+				wr.newLine();
+			}
+			wr.close();
+			System.out.println("Kiírás kész!");
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		SortedSet<Integer> halmaz=new TreeSet<>();
+		
+		halmaz.add(5);
+		halmaz.add(1);
+		halmaz.add(2);
+		halmaz.add(1);
+		halmaz.add(1);
+		halmaz.add(4);
+		halmaz.add(3);
+		halmaz.add(3);
+		
+		
+		
+		System.out.println(halmaz);
+		System.out.println(halmaz.size());
 	}
 
 }
