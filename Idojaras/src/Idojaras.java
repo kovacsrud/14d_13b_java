@@ -61,6 +61,19 @@ public class Idojaras {
 		
 		System.out.println("2008 max hõmérséklete:"+maxho08);
 		System.out.println("2008 min hõmérséklete:"+minho08);
+		
+		//Melyik napon volt a legmelegebb óra? (év, hó, nap)
+		
+		Double maxho=idojarasAdatok.stream().mapToDouble(x->x.getHomerseklet()).max().getAsDouble();
+		
+		IdojarasAdat legmelegebb=idojarasAdatok.stream().filter(x->x.getHomerseklet()==maxho).findFirst().get();
+		
+		System.out.println(legmelegebb.getEv()+","+legmelegebb.getHonap()+","+legmelegebb.getNap()+","+legmelegebb.getOra()+","+legmelegebb.getHomerseklet());
+		
+		List<IdojarasAdat> legmelegebbek=idojarasAdatok.stream().filter(x->x.getHomerseklet()==maxho).collect(Collectors.toList());
+		
+		System.out.println(legmelegebbek.size());
+		
 	}
 
 }
