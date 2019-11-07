@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="Alapok/src"/>
+	<classpathentry kind="src" path="Emberek/src"/>
+	<classpathentry kind="src" path="Idojaras/src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="Alapok/build/classes"/>
+</classpath>
