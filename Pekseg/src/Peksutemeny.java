@@ -42,7 +42,7 @@ public abstract class Peksutemeny implements Arlap {
 	@Override
 	public String toString() {
 	
-		return "Mennyiség:"+mennyiseg+" db -"+alapar+" Ft";
+		return "Mennyiség:"+mennyiseg+" db - "+alapar+" Ft";
 	}
 	
 	

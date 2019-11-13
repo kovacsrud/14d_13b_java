@@ -25,9 +25,9 @@ public class Kave implements Arlap {
 		String vissza="";
 		
 		if (habosE) {
-			vissza=vissza+"Habos"+mennyibeKerul();
+			vissza=vissza+"Habos "+mennyibeKerul();
 		} else {
-			vissza=vissza+"Nem habos"+mennyibeKerul();
+			vissza=vissza+"Nem habos "+mennyibeKerul();
 		}
 		
 		
