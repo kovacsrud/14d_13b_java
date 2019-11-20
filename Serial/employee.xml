@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.8.0_201" class="java.beans.XMLDecoder">
+ <object class="java.util.ArrayList">
+  <void method="add">
+   <object class="Employee">
+    <void property="birthYear">
+     <int>2001</int>
+    </void>
+    <void property="firstName">
+     <string>Kiss</string>
+    </void>
+    <void property="lastName">
+     <string>Elek</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="Employee">
+    <void property="birthYear">
+     <int>1989</int>
+    </void>
+    <void property="firstName">
+     <string>Varga</string>
+    </void>
+    <void property="lastName">
+     <string>Éva</string>
+    </void>
+   </object>
+  </void>
+ </object>
+</java>
