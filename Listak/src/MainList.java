@@ -8,10 +8,14 @@ import java.awt.GridBagLayout;
 import javax.swing.JTextField;
 import java.awt.GridBagConstraints;
 import java.awt.Font;
+
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import java.awt.Insets;
 import javax.swing.JList;
 import javax.swing.ListSelectionModel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class MainList extends JFrame {
 
@@ -62,6 +66,7 @@ public class MainList extends JFrame {
 		
 		JList list = new JList();
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		list.setModel(new DefaultListModel());
 		GridBagConstraints gbc_list = new GridBagConstraints();
 		gbc_list.gridheight = 4;
 		gbc_list.insets = new Insets(0, 0, 5, 0);
@@ -71,6 +76,13 @@ public class MainList extends JFrame {
 		contentPane.add(list, gbc_list);
 		
 		JButton btnAdd = new JButton("Hozz\u00E1ad\u00E1s");
+		btnAdd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				DefaultListModel listaElemek=(DefaultListModel)list.getModel();
+				listaElemek.addElement(tfInput.getText());
+				list.setModel(listaElemek);
+			}
+		});
 		GridBagConstraints gbc_btnAdd = new GridBagConstraints();
 		gbc_btnAdd.insets = new Insets(0, 0, 5, 0);
 		gbc_btnAdd.gridx = 0;
@@ -78,6 +90,16 @@ public class MainList extends JFrame {
 		contentPane.add(btnAdd, gbc_btnAdd);
 		
 		JButton btnDel = new JButton("T\u00F6rl\u00E9s");
+		btnDel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DefaultListModel listaElemek=(DefaultListModel)list.getModel();
+				if (list.getSelectedIndex()>-1) {
+					listaElemek.removeElementAt(list.getSelectedIndex());
+					list.setModel(listaElemek);
+				}
+				
+			}
+		});
 		GridBagConstraints gbc_btnDel = new GridBagConstraints();
 		gbc_btnDel.gridx = 0;
 		gbc_btnDel.gridy = 7;
