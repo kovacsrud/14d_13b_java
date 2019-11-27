@@ -6,10 +6,23 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.GridBagLayout;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
+
 import java.awt.GridBagConstraints;
 import javax.swing.JLabel;
 import java.awt.Insets;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import javax.swing.JList;
+import javax.swing.JOptionPane;
+
+import java.awt.event.ActionListener;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.awt.event.ActionEvent;
 
 public class MainHaromszogek extends JFrame {
 
@@ -35,6 +48,11 @@ public class MainHaromszogek extends JFrame {
 	 * Create the frame.
 	 */
 	public MainHaromszogek() {
+		
+		List<DHaromszog> haromszogek=new ArrayList<DHaromszog>();
+		JFileChooser fc=new JFileChooser();
+		
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -48,6 +66,31 @@ public class MainHaromszogek extends JFrame {
 		contentPane.setLayout(gbl_contentPane);
 		
 		JButton btnBetolt = new JButton("Adatok bet\u00F6lt\u00E9se");
+		btnBetolt.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				fc.showOpenDialog(null);
+				String fajl=fc.getSelectedFile().getPath();
+				System.out.println(fajl);
+				List<String> sorok=Collections.emptyList();
+				try {
+					sorok=Files.readAllLines(Paths.get(fajl));
+					for (int i = 0; i < sorok.size(); i++) {
+						DHaromszog haromszog=new DHaromszog(sorok.get(i), i+1);
+					}
+				}
+				catch (HaromszogHiba e) {
+					JOptionPane.showMessageDialog(null,e.getMessage());
+				}
+				catch (NumberFormatException e){
+					JOptionPane.showMessageDialog(null,e.getMessage());
+				}
+				catch (Exception e) {
+					JOptionPane.showMessageDialog(null,"Hiba");
+				}
+				
+				
+			}
+		});
 		GridBagConstraints gbc_btnBetolt = new GridBagConstraints();
 		gbc_btnBetolt.insets = new Insets(0, 0, 5, 5);
 		gbc_btnBetolt.gridx = 0;
