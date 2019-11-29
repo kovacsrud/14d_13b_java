@@ -5,6 +5,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.GridBagLayout;
+
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 
@@ -68,26 +70,37 @@ public class MainHaromszogek extends JFrame {
 		JButton btnBetolt = new JButton("Adatok bet\u00F6lt\u00E9se");
 		btnBetolt.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				fc.showOpenDialog(null);
+				int res=fc.showOpenDialog(null);
+				
+				if(res==JFileChooser.APPROVE_OPTION){
+				
 				String fajl=fc.getSelectedFile().getPath();
 				System.out.println(fajl);
 				List<String> sorok=Collections.emptyList();
 				try {
 					sorok=Files.readAllLines(Paths.get(fajl));
 					for (int i = 0; i < sorok.size(); i++) {
-						DHaromszog haromszog=new DHaromszog(sorok.get(i), i+1);
+						try {
+							DHaromszog haromszog=new DHaromszog(sorok.get(i), i+1);
+							haromszogek.add(haromszog);
+							//Háromszögek listájához hozzáadni
+							
+						}
+						catch (HaromszogHiba e) {
+							JOptionPane.showMessageDialog(null,e.getMessage());
+							//Hibás elemekhez hozzáadni
+						}
+						catch (NumberFormatException e){
+							JOptionPane.showMessageDialog(null,e.getMessage());
+						}
 					}
 				}
-				catch (HaromszogHiba e) {
-					JOptionPane.showMessageDialog(null,e.getMessage());
-				}
-				catch (NumberFormatException e){
-					JOptionPane.showMessageDialog(null,e.getMessage());
-				}
+				
+				
 				catch (Exception e) {
 					JOptionPane.showMessageDialog(null,"Hiba");
 				}
-				
+			}
 				
 			}
 		});
@@ -97,15 +110,16 @@ public class MainHaromszogek extends JFrame {
 		gbc_btnBetolt.gridy = 0;
 		contentPane.add(btnBetolt, gbc_btnBetolt);
 		
-		JList list_1 = new JList();
-		GridBagConstraints gbc_list_1 = new GridBagConstraints();
-		gbc_list_1.gridheight = 2;
-		gbc_list_1.gridwidth = 6;
-		gbc_list_1.insets = new Insets(0, 0, 5, 5);
-		gbc_list_1.fill = GridBagConstraints.BOTH;
-		gbc_list_1.gridx = 0;
-		gbc_list_1.gridy = 1;
-		contentPane.add(list_1, gbc_list_1);
+		JList listHiba = new JList();
+		listHiba.setModel(new DefaultListModel());
+		GridBagConstraints gbc_listHiba = new GridBagConstraints();
+		gbc_listHiba.gridheight = 2;
+		gbc_listHiba.gridwidth = 6;
+		gbc_listHiba.insets = new Insets(0, 0, 5, 5);
+		gbc_listHiba.fill = GridBagConstraints.BOTH;
+		gbc_listHiba.gridx = 0;
+		gbc_listHiba.gridy = 1;
+		contentPane.add(listHiba, gbc_listHiba);
 		
 		JLabel lblNewLabel = new JLabel("Der\u00E9ksz\u00F6g\u0171 h\u00E1romsz\u00F6gek");
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
@@ -122,14 +136,16 @@ public class MainHaromszogek extends JFrame {
 		gbc_lblNewLabel_2.gridy = 4;
 		contentPane.add(lblNewLabel_2, gbc_lblNewLabel_2);
 		
-		JList list = new JList();
-		GridBagConstraints gbc_list = new GridBagConstraints();
-		gbc_list.gridwidth = 5;
-		gbc_list.insets = new Insets(0, 0, 5, 5);
-		gbc_list.fill = GridBagConstraints.BOTH;
-		gbc_list.gridx = 0;
-		gbc_list.gridy = 5;
-		contentPane.add(list, gbc_list);
+		JList listHaromszogek = new JList();
+		listHaromszogek.setModel(new DefaultListModel());
+		GridBagConstraints gbc_listHaromszogek = new GridBagConstraints();
+		gbc_listHaromszogek.gridheight = 2;
+		gbc_listHaromszogek.gridwidth = 5;
+		gbc_listHaromszogek.insets = new Insets(0, 0, 5, 5);
+		gbc_listHaromszogek.fill = GridBagConstraints.BOTH;
+		gbc_listHaromszogek.gridx = 0;
+		gbc_listHaromszogek.gridy = 5;
+		contentPane.add(listHaromszogek, gbc_listHaromszogek);
 		
 		JLabel lblKerulet = new JLabel("New label");
 		GridBagConstraints gbc_lblKerulet = new GridBagConstraints();
