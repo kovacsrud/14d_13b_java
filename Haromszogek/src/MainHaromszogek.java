@@ -25,6 +25,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class MainHaromszogek extends JFrame {
 
@@ -132,7 +134,11 @@ public class MainHaromszogek extends JFrame {
 				if(res==JFileChooser.APPROVE_OPTION){
 				
 				String fajl=fc.getSelectedFile().getPath();
-				System.out.println(fajl);
+				DefaultListModel listaElemekHiba=(DefaultListModel)listHiba.getModel();
+				listaElemekHiba.clear();
+				DefaultListModel listaElemekHsz=(DefaultListModel)listHaromszogek.getModel();
+				listaElemekHsz.clear();
+				
 				List<String> sorok=Collections.emptyList();
 				try {
 					sorok=Files.readAllLines(Paths.get(fajl));
@@ -166,6 +172,15 @@ public class MainHaromszogek extends JFrame {
 				
 			}
 		});
+		listHaromszogek.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				int elemszam=listHaromszogek.getSelectedIndex();
+				lblKerulet.setText(String.valueOf(haromszogek.get(elemszam).Kerulet()));
+				lblTerulet.setText(String.valueOf(haromszogek.get(elemszam).Terulet()));
+			}
+		});
+
 	}
 
 }
