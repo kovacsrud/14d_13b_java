@@ -68,42 +68,7 @@ public class MainHaromszogek extends JFrame {
 		contentPane.setLayout(gbl_contentPane);
 		
 		JButton btnBetolt = new JButton("Adatok bet\u00F6lt\u00E9se");
-		btnBetolt.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				int res=fc.showOpenDialog(null);
-				
-				if(res==JFileChooser.APPROVE_OPTION){
-				
-				String fajl=fc.getSelectedFile().getPath();
-				System.out.println(fajl);
-				List<String> sorok=Collections.emptyList();
-				try {
-					sorok=Files.readAllLines(Paths.get(fajl));
-					for (int i = 0; i < sorok.size(); i++) {
-						try {
-							DHaromszog haromszog=new DHaromszog(sorok.get(i), i+1);
-							haromszogek.add(haromszog);
-							//Háromszögek listájához hozzáadni
-							
-						}
-						catch (HaromszogHiba e) {
-							JOptionPane.showMessageDialog(null,e.getMessage());
-							//Hibás elemekhez hozzáadni
-						}
-						catch (NumberFormatException e){
-							JOptionPane.showMessageDialog(null,e.getMessage());
-						}
-					}
-				}
-				
-				
-				catch (Exception e) {
-					JOptionPane.showMessageDialog(null,"Hiba");
-				}
-			}
-				
-			}
-		});
+		
 		GridBagConstraints gbc_btnBetolt = new GridBagConstraints();
 		gbc_btnBetolt.insets = new Insets(0, 0, 5, 5);
 		gbc_btnBetolt.gridx = 0;
@@ -159,6 +124,48 @@ public class MainHaromszogek extends JFrame {
 		gbc_lblTerulet.gridx = 5;
 		gbc_lblTerulet.gridy = 6;
 		contentPane.add(lblTerulet, gbc_lblTerulet);
+		
+		btnBetolt.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				int res=fc.showOpenDialog(null);
+				
+				if(res==JFileChooser.APPROVE_OPTION){
+				
+				String fajl=fc.getSelectedFile().getPath();
+				System.out.println(fajl);
+				List<String> sorok=Collections.emptyList();
+				try {
+					sorok=Files.readAllLines(Paths.get(fajl));
+					for (int i = 0; i < sorok.size(); i++) {
+						try {
+							DHaromszog haromszog=new DHaromszog(sorok.get(i), i+1);
+							haromszogek.add(haromszog);
+							//Háromszögek listájához hozzáadni
+							DefaultListModel listaElemek=(DefaultListModel)listHaromszogek.getModel();
+							listaElemek.addElement((i+1)+".sor: "+"A:"+haromszog.getaOldal()+","+"B:"+haromszog.getbOldal()+","+"C:"+haromszog.getcOldal());
+							
+							
+						}
+						catch (HaromszogHiba e) {
+							JOptionPane.showMessageDialog(null,e.getMessage());
+							DefaultListModel listaElemek=(DefaultListModel)listHiba.getModel();
+							listaElemek.addElement((i+1)+".sor: "+e.getMessage());
+							//Hibás elemekhez hozzáadni
+						}
+						catch (NumberFormatException e){
+							JOptionPane.showMessageDialog(null,e.getMessage());
+						}
+					}
+				}
+				
+				
+				catch (Exception e) {
+					JOptionPane.showMessageDialog(null,"Hiba");
+				}
+			}
+				
+			}
+		});
 	}
 
 }
